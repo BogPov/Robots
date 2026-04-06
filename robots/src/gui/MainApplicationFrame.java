@@ -3,6 +3,8 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Locale;
 
 import javax.swing.*;
@@ -16,8 +18,6 @@ public class MainApplicationFrame extends JFrame
     private static final String MENU_LOOK_AND_FEEL = "Режим отображения";
     private static final String MENU_TEST = "Тесты";
     private static final String MENU_EXIT = "Выход";
-
-
     
     public MainApplicationFrame(){
         setLocale("ru", "RU");
@@ -25,7 +25,7 @@ public class MainApplicationFrame extends JFrame
         initDesktop();
         initWindows();
         setJMenuBar(createMenuBar());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     // вынес в отдельный метод чтобы в будущем была возможность
@@ -41,6 +41,12 @@ public class MainApplicationFrame extends JFrame
         setBounds(inset, inset,
                 screenSize.width - inset * 2,
                 screenSize.height - inset * 2);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitCommand();
+            }
+        });
     }
 
     private void initDesktop() {
@@ -78,8 +84,7 @@ public class MainApplicationFrame extends JFrame
         return menuBar;
     }
 
-    protected void addWindow(JInternalFrame frame)
-    {
+    protected void addWindow(JInternalFrame frame) {
         desktopPane.add(frame);
         frame.setVisible(true);
     }
@@ -108,9 +113,13 @@ public class MainApplicationFrame extends JFrame
     private JMenu createExitMenuItem() {
         JMenu menu = new JMenu(MENU_EXIT);
 
-        menu.add(createMenuItem("Закрыть приложение",
-                e -> exitCommand()));
+        JMenuItem exitItem = new JMenuItem("Закрыть приложение");
+        exitItem.addActionListener(event -> {
+            WindowEvent closingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closingEvent);
+        });
 
+        menu.add(exitItem);
         return menu;
     }
 
