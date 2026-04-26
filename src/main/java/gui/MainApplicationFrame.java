@@ -5,25 +5,32 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Locale;
-
 import javax.swing.*;
 
 import log.Logger;
+import service.WindowStateService;
+import storage.YamlWindowStateStorage;
 
 public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
+    private final String configPath = System.getProperty("user.home") + File.separator + "window_config.yaml";
+
+    private final YamlWindowStateStorage storage = new YamlWindowStateStorage(configPath);
+    private final WindowStateService stateService = new WindowStateService(storage);
 
     private static final String MENU_LOOK_AND_FEEL = "Режим отображения";
     private static final String MENU_TEST = "Тесты";
     private static final String MENU_EXIT = "Выход";
-    
+
     public MainApplicationFrame(){
         setLocale("ru", "RU");
         setupMainWindow();
         initDesktop();
         initWindows();
+        stateService.load(desktopPane);
         setJMenuBar(createMenuBar());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
@@ -57,21 +64,19 @@ public class MainApplicationFrame extends JFrame
         addWindow(createLogWindow());
         addWindow(createGameWindow());
     }
-    
+
     protected LogWindow createLogWindow()
     {
         LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
-        logWindow.setLocation(10,10);
-        logWindow.setSize(300, 800);
-        setMinimumSize(logWindow.getSize());
         logWindow.pack();
+        logWindow.setName("logWindow");
         Logger.debug("Протокол работает");
         return logWindow;
     }
 
     protected GameWindow createGameWindow(){
         GameWindow gameWindow = new GameWindow();
-        gameWindow.setSize(400, 400);
+        gameWindow.setName("gameWindow");
         return gameWindow;
     }
 
@@ -129,7 +134,7 @@ public class MainApplicationFrame extends JFrame
         item.addActionListener(action);
         return item;
     }
-    
+
     private void setLookAndFeel(String className)
     {
         try
@@ -157,6 +162,7 @@ public class MainApplicationFrame extends JFrame
                 options,
                 options[1]);
         if (n == 0){
+            stateService.save(desktopPane);
             System.exit(0);
         }
     }
