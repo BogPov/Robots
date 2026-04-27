@@ -42,6 +42,8 @@ public class GameVisualizer extends JPanel
             {
                 onRedrawEvent();
             }
+//        logWindow.setSize(300, 800);
+//        setMinimumSize(logWindow.getSize());
         }, 0, 50);
         m_timer.schedule(new TimerTask()
         {

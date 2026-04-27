@@ -10,6 +10,7 @@ import java.util.Map;
 public class WindowStateService {
 
     private final WindowStateStorage storage;
+    private int defGridCounter = 0;
 
     public WindowStateService(WindowStateStorage storage) {
         this.storage = storage;
@@ -35,12 +36,27 @@ public class WindowStateService {
         storage.save(data);
     }
 
+    private WindowState getDefSizes(){
+        WindowState ws = new WindowState();
+        ws.x = 300 * (defGridCounter % 2);
+        ws.y = 300 * (defGridCounter / 2);
+        ws.width = 300;
+        ws.height = 300;
+        ws.icon = false;
+        ws.max = false;
+        defGridCounter++;
+        return ws;
+    }
+
+
     public void load(JDesktopPane desktopPane) {
         Map<String, WindowState> data = storage.load();
 
         for (JInternalFrame frame : desktopPane.getAllFrames()) {
             WindowState state = data.get(frame.getName());
-            if (state == null) continue;
+            if (state == null) {
+                state = getDefSizes();
+            };
 
             frame.setBounds(state.x, state.y, state.width, state.height);
 

@@ -1,8 +1,11 @@
 log/LogChangeListener.class
 service/WindowStateService.class
+game_entities/GameEntity.class
+game_entities/Robot.class
 log/LogLevel.class
 gui/GameVisualizer$3.class
 gui/MainApplicationFrame$1.class
+game_entities/Target.class
 log/LogWindowSource.class
 log/Logger.class
 model/WindowState.class
