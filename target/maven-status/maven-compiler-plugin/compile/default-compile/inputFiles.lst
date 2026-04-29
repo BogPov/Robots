@@ -1,6 +1,5 @@
-/home/festena/javaProjects/Robots/src/main/java/game_entities/GameEntity.java
-/home/festena/javaProjects/Robots/src/main/java/game_entities/Robot.java
-/home/festena/javaProjects/Robots/src/main/java/game_entities/Target.java
+/home/festena/javaProjects/Robots/src/main/java/controller/RobotController.java
+/home/festena/javaProjects/Robots/src/main/java/game_model/RobotModel.java
 /home/festena/javaProjects/Robots/src/main/java/gui/GameVisualizer.java
 /home/festena/javaProjects/Robots/src/main/java/gui/GameWindow.java
 /home/festena/javaProjects/Robots/src/main/java/gui/LogWindow.java
@@ -11,7 +10,10 @@
 /home/festena/javaProjects/Robots/src/main/java/log/LogLevel.java
 /home/festena/javaProjects/Robots/src/main/java/log/LogWindowSource.java
 /home/festena/javaProjects/Robots/src/main/java/log/Logger.java
+/home/festena/javaProjects/Robots/src/main/java/math_tools/GameMathTools.java
 /home/festena/javaProjects/Robots/src/main/java/model/WindowState.java
+/home/festena/javaProjects/Robots/src/main/java/observer/Observeable.java
+/home/festena/javaProjects/Robots/src/main/java/observer/RobotModelObserver.java
 /home/festena/javaProjects/Robots/src/main/java/service/WindowStateService.java
 /home/festena/javaProjects/Robots/src/main/java/storage/WindowStateStorage.java
 /home/festena/javaProjects/Robots/src/main/java/storage/YamlWindowStateStorage.java
