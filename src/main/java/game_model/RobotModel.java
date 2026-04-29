@@ -1,5 +1,9 @@
 package game_model;
 
+import factory.GameEventFactory;
+import model.GameEvent;
+import model.RobotMovedEvent;
+import model.TargetChangedEvent;
 import observer.Observeable;
 import observer.RobotModelObserver;
 
@@ -69,19 +73,27 @@ public class RobotModel implements Observeable<RobotModelObserver> {
             angularVelocity = -maxAngularVelocity;
         }
         move(velocity, angularVelocity, 10);
-        notifyObservers();
+        notifyObservers(GameEventFactory.createRobotMoved(m_robotPositionX, m_robotPositionY, m_robotDirection));
     }
 
     public void setTargetPosition(Point p)
     {
         m_targetPositionX = p.x;
         m_targetPositionY = p.y;
-        notifyObservers();
+        notifyObservers(GameEventFactory.createTargetChanged(m_targetPositionX, m_targetPositionY));
     }
 
     @Override
     public void attach(RobotModelObserver observer) {
         observers.add(observer);
+        // начальное стостояние
+        observer.onModelUpdateEvent(
+                GameEventFactory.createRobotMoved(m_robotPositionX, m_robotPositionY, m_robotDirection)
+        );
+
+        observer.onModelUpdateEvent(
+                GameEventFactory.createTargetChanged(m_targetPositionX, m_targetPositionY)
+        );
     }
 
     @Override
@@ -90,15 +102,9 @@ public class RobotModel implements Observeable<RobotModelObserver> {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(GameEvent event) {
         for (RobotModelObserver observer : observers){
-            observer.onModelUpdateEvent();
+            observer.onModelUpdateEvent(event);
         }
     }
-
-    public double getRobotPositionX() { return m_robotPositionX; }
-    public double getRobotPositionY() { return m_robotPositionY; }
-    public double getRobotDirection() { return m_robotDirection; }
-    public int getTargetPositionX() { return m_targetPositionX; }
-    public int getTargetPositionY() { return m_targetPositionY; }
 }

@@ -25,11 +25,16 @@ public class MainApplicationFrame extends JFrame
     private static final String MENU_TEST = "Тесты";
     private static final String MENU_EXIT = "Выход";
 
+    private LogWindow logWindow;
+    private GameWindow gameWindow;
+    private RobotStateWindow robotStateWindow;
+
     public MainApplicationFrame(){
         setLocale("ru", "RU");
         setupMainWindow();
         initDesktop();
         initWindows();
+        gameWindow.setNewModelObserver(robotStateWindow);
         stateService.load(desktopPane);
         setJMenuBar(createMenuBar());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -63,24 +68,32 @@ public class MainApplicationFrame extends JFrame
     private void initWindows() {
         addWindow(createLogWindow());
         addWindow(createGameWindow());
+        addWindow(createGameLogWindow());
     }
 
     protected LogWindow createLogWindow()
     {
-        LogWindow logWindow = new LogWindow(Logger.getDefaultLogSource());
+        logWindow = new LogWindow(Logger.getDefaultLogSource());
         logWindow.pack();
         logWindow.setName("logWindow");
         Logger.debug("Протокол работает");
         return logWindow;
     }
 
+
     protected GameWindow createGameWindow(){
-        GameWindow gameWindow = new GameWindow();
+        gameWindow = new GameWindow();
         gameWindow.setName("gameWindow");
         return gameWindow;
     }
 
-    // метод создания меню
+    protected RobotStateWindow createGameLogWindow()
+    {
+        robotStateWindow = new RobotStateWindow();
+        robotStateWindow.setName("gameLogWindow");
+        return robotStateWindow;
+    }
+
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(createLookAndFeelMenu());

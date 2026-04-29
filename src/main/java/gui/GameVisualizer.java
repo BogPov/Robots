@@ -1,6 +1,9 @@
 package gui;
 
 import game_model.RobotModel;
+import model.GameEvent;
+import model.RobotMovedEvent;
+import model.TargetChangedEvent;
 import observer.RobotModelObserver;
 
 import java.awt.Color;
@@ -35,15 +38,19 @@ public class GameVisualizer extends JPanel implements RobotModelObserver
     {
         this.model = model;
         model.attach(this);
-        updateFromModel();
     }
 
-    private void updateFromModel() {
-        m_robotPositionX = model.getRobotPositionX();
-        m_robotPositionY = model.getRobotPositionY();
-        m_robotDirection = model.getRobotDirection();
-        m_targetPositionX = model.getTargetPositionX();
-        m_targetPositionY = model.getTargetPositionY();
+    private void updateFromModel(GameEvent event){
+        if (event instanceof RobotMovedEvent move) {
+            m_robotPositionX = move.getX();
+            m_robotPositionY = move.getY();
+            m_robotDirection = move.getDirection();
+        }
+
+        else if (event instanceof TargetChangedEvent target) {
+            m_targetPositionX = target.getX();
+            m_targetPositionY = target.getY();
+        }
     }
 
     protected void onRedrawEvent()
@@ -52,9 +59,9 @@ public class GameVisualizer extends JPanel implements RobotModelObserver
     }
 
     @Override
-    public void onModelUpdateEvent()
+    public void onModelUpdateEvent(GameEvent event)
     {
-        updateFromModel();
+        updateFromModel(event);
         repaint();
         EventQueue.invokeLater(this::repaint);
     }
