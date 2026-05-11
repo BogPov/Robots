@@ -13,12 +13,12 @@ import static math_tools.GameMathTools.*;
 import static math_tools.GameMathTools.angleTo;
 
 public class GameModel implements Observeable<GameModelObserver> {
-    private volatile double m_robotPositionX = 100;
-    private volatile double m_robotPositionY = 100;
-    private volatile double m_robotDirection = 0;
+    private double m_robotPositionX = 100;
+    private double m_robotPositionY = 100;
+    private double m_robotDirection = 0;
 
-    private volatile int m_targetPositionX = 150;
-    private volatile int m_targetPositionY = 100;
+    private int m_targetPositionX = 150;
+    private int m_targetPositionY = 100;
 
     private static final double maxVelocity = 0.1;
     private static final double maxAngularVelocity = 0.001;
@@ -45,8 +45,7 @@ public class GameModel implements Observeable<GameModelObserver> {
         }
         m_robotPositionX = newX;
         m_robotPositionY = newY;
-        double newDirection = asNormalizedRadians(m_robotDirection + angularVelocity * duration);
-        m_robotDirection = newDirection;
+        m_robotDirection = asNormalizedRadians(m_robotDirection + angularVelocity * duration);
     };
 
     public void update()
