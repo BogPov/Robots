@@ -2,10 +2,8 @@ package game_model;
 
 import factory.GameEventFactory;
 import model.GameEvent;
-import model.RobotMovedEvent;
-import model.TargetChangedEvent;
 import observer.Observeable;
-import observer.RobotModelObserver;
+import observer.GameModelObserver;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.List;
 import static math_tools.GameMathTools.*;
 import static math_tools.GameMathTools.angleTo;
 
-public class RobotModel implements Observeable<RobotModelObserver> {
+public class GameModel implements Observeable<GameModelObserver> {
     private volatile double m_robotPositionX = 100;
     private volatile double m_robotPositionY = 100;
     private volatile double m_robotDirection = 0;
@@ -25,7 +23,7 @@ public class RobotModel implements Observeable<RobotModelObserver> {
     private static final double maxVelocity = 0.1;
     private static final double maxAngularVelocity = 0.001;
 
-    private final List<RobotModelObserver> observers = new ArrayList<>();
+    private final List<GameModelObserver> observers = new ArrayList<>();
 
     public void move(double velocity, double angularVelocity, double duration)
     {
@@ -51,27 +49,29 @@ public class RobotModel implements Observeable<RobotModelObserver> {
         m_robotDirection = newDirection;
     };
 
-
-
     public void update()
     {
-        double distance = distance(m_targetPositionX, m_targetPositionY,
-                m_robotPositionX, m_robotPositionY);
+        double distance = distance(m_robotPositionX, m_robotPositionY, m_targetPositionX, m_targetPositionY);
         if (distance < 0.5)
         {
             return;
         }
-        double velocity = maxVelocity;
+
         double angleToTarget = angleTo(m_robotPositionX, m_robotPositionY, m_targetPositionX, m_targetPositionY);
+        double angleDiff = asNormalizedRadians(angleToTarget - m_robotDirection);
+
         double angularVelocity = 0;
-        if (angleToTarget > m_robotDirection)
+        if (angleDiff > 0 && angleDiff < Math.PI)
         {
             angularVelocity = maxAngularVelocity;
         }
-        if (angleToTarget < m_robotDirection)
+        if (angleDiff > Math.PI)
         {
             angularVelocity = -maxAngularVelocity;
         }
+
+        double velocity = Math.min(maxVelocity, distance * maxAngularVelocity);
+
         move(velocity, angularVelocity, 10);
         notifyObservers(GameEventFactory.createRobotMoved(m_robotPositionX, m_robotPositionY, m_robotDirection));
     }
@@ -84,7 +84,7 @@ public class RobotModel implements Observeable<RobotModelObserver> {
     }
 
     @Override
-    public void attach(RobotModelObserver observer) {
+    public void attach(GameModelObserver observer) {
         observers.add(observer);
         // начальное стостояние
         observer.onModelUpdateEvent(
@@ -97,13 +97,13 @@ public class RobotModel implements Observeable<RobotModelObserver> {
     }
 
     @Override
-    public void deattach(RobotModelObserver observer) {
+    public void deattach(GameModelObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers(GameEvent event) {
-        for (RobotModelObserver observer : observers){
+        for (GameModelObserver observer : observers){
             observer.onModelUpdateEvent(event);
         }
     }

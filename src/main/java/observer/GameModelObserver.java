@@ -2,6 +2,6 @@ package observer;
 
 import model.GameEvent;
 
-public interface RobotModelObserver {
+public interface GameModelObserver {
     void onModelUpdateEvent(GameEvent state);
 }

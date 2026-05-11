@@ -27,7 +27,7 @@ public class MainApplicationFrame extends JFrame
 
     private LogWindow logWindow;
     private GameWindow gameWindow;
-    private RobotStateWindow robotStateWindow;
+    private GameStateWindow robotStateWindow;
 
     public MainApplicationFrame(){
         setLocale("ru", "RU");
@@ -87,9 +87,9 @@ public class MainApplicationFrame extends JFrame
         return gameWindow;
     }
 
-    protected RobotStateWindow createGameLogWindow()
+    protected GameStateWindow createGameLogWindow()
     {
-        robotStateWindow = new RobotStateWindow();
+        robotStateWindow = new GameStateWindow();
         robotStateWindow.setName("gameLogWindow");
         return robotStateWindow;
     }

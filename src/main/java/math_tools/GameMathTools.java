@@ -28,6 +28,7 @@ public class GameMathTools {
         return (int)(value + 0.5);
     }
 
+
     public static double distance(double x1, double y1, double x2, double y2)
     {
         double diffX = x1 - x2;

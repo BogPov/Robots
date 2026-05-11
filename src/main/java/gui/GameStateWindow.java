@@ -3,12 +3,12 @@ package gui;
 import model.GameEvent;
 import model.RobotMovedEvent;
 import model.TargetChangedEvent;
-import observer.RobotModelObserver;
+import observer.GameModelObserver;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RobotStateWindow extends JInternalFrame implements RobotModelObserver
+public class GameStateWindow extends JInternalFrame implements GameModelObserver
 {
     private final TextArea m_content;
 
@@ -19,7 +19,7 @@ public class RobotStateWindow extends JInternalFrame implements RobotModelObserv
     private volatile int m_targetX;
     private volatile int m_targetY;
 
-    public RobotStateWindow()
+    public GameStateWindow()
     {
         super("Состояние робота", true, true, true, true);
 
@@ -37,8 +37,10 @@ public class RobotStateWindow extends JInternalFrame implements RobotModelObserv
     private void updateContent()
     {
         m_content.setText(
-                "РОБОТ" + "\nx: " + m_robotX + "\ny: " + m_robotY + "\ndir: " + m_robotDir+
-                "\n\nЦЕЛЬ" + "\nx: " + m_targetX + "\ny: " + m_targetY
+                "РОБОТ" + "\nx: " + String.format("%.2f", m_robotX)
+                        + "\ny: " + String.format("%.2f", m_robotY)
+                        + "\ndir: " + String.format("%.2f", m_robotDir) +
+                        "\n\nЦЕЛЬ" + "\nx: " + m_targetX + "\ny: " + m_targetY
         );
 
         m_content.invalidate();

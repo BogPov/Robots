@@ -1,8 +1,8 @@
 package gui;
 
-import controller.RobotController;
-import game_model.RobotModel;
-import observer.RobotModelObserver;
+import controller.GameController;
+import game_model.GameModel;
+import observer.GameModelObserver;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
@@ -13,15 +13,15 @@ import javax.swing.JPanel;
 
 public class GameWindow extends JInternalFrame
 {
-    RobotModel model;
+    GameModel model;
     private final GameVisualizer m_visualizer;
 
     public GameWindow() 
     {
         super("Игровое поле", true, true, true, true);
-        model = new RobotModel();
+        model = new GameModel();
         m_visualizer = new GameVisualizer(model);
-        RobotController controller = new RobotController(model, m_visualizer);
+        GameController controller = new GameController(model, m_visualizer);
         m_visualizer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -34,7 +34,7 @@ public class GameWindow extends JInternalFrame
         pack();
     }
 
-    public void setNewModelObserver(RobotModelObserver observer){
+    public void setNewModelObserver(GameModelObserver observer){
         model.attach(observer);
     }
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import game_model.RobotModel;
+import game_model.GameModel;
 import gui.GameVisualizer;
 
 import java.awt.*;
@@ -8,11 +8,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class RobotController {
-    private final RobotModel model;
+public class GameController {
+    private final GameModel model;
     private final Timer moveTimer;
 
-    public RobotController(RobotModel model, GameVisualizer visualizer) {
+    public GameController(GameModel model, GameVisualizer visualizer) {
         this.model = model;
 
         moveTimer = new Timer("model-updater", true);

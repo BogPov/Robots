@@ -1,10 +1,10 @@
 package gui;
 
-import game_model.RobotModel;
+import game_model.GameModel;
 import model.GameEvent;
 import model.RobotMovedEvent;
 import model.TargetChangedEvent;
-import observer.RobotModelObserver;
+import observer.GameModelObserver;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 import static math_tools.GameMathTools.*;
 
-public class GameVisualizer extends JPanel implements RobotModelObserver
+public class GameVisualizer extends JPanel implements GameModelObserver
 {
     private volatile double m_robotPositionX;
     private volatile double m_robotPositionY;
@@ -26,7 +26,7 @@ public class GameVisualizer extends JPanel implements RobotModelObserver
     private volatile int m_targetPositionY;
     private final Timer m_timer = initTimer();
 
-    RobotModel model;
+    GameModel model;
     
     private static Timer initTimer() 
     {
@@ -34,7 +34,7 @@ public class GameVisualizer extends JPanel implements RobotModelObserver
         return timer;
     }
 
-    public GameVisualizer(RobotModel model)
+    public GameVisualizer(GameModel model)
     {
         this.model = model;
         model.attach(this);
@@ -110,6 +110,4 @@ public class GameVisualizer extends JPanel implements RobotModelObserver
         g.setColor(Color.BLACK);
         drawOval(g, x, y, 5, 5);
     }
-
-
 }
