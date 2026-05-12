@@ -15,7 +15,7 @@ import java.util.Timer;
 
 import javax.swing.JPanel;
 
-import static math_tools.GameMathTools.*;
+import static tools.math_tools.GameMathTools.*;
 
 public class GameVisualizer extends JPanel implements GameModelObserver
 {

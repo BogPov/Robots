@@ -1,4 +1,4 @@
-package math_tools;
+package tools.math_tools;
 
 public class GameMathTools {
     public static double applyLimits(double value, double min, double max)

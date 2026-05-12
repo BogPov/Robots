@@ -12,7 +12,6 @@
 /home/festena/javaProjects/Robots/src/main/java/log/LogLevel.java
 /home/festena/javaProjects/Robots/src/main/java/log/LogWindowSource.java
 /home/festena/javaProjects/Robots/src/main/java/log/Logger.java
-/home/festena/javaProjects/Robots/src/main/java/math_tools/GameMathTools.java
 /home/festena/javaProjects/Robots/src/main/java/model/GameEvent.java
 /home/festena/javaProjects/Robots/src/main/java/model/RobotMovedEvent.java
 /home/festena/javaProjects/Robots/src/main/java/model/TargetChangedEvent.java
@@ -22,3 +21,5 @@
 /home/festena/javaProjects/Robots/src/main/java/service/WindowStateService.java
 /home/festena/javaProjects/Robots/src/main/java/storage/WindowStateStorage.java
 /home/festena/javaProjects/Robots/src/main/java/storage/YamlWindowStateStorage.java
+/home/festena/javaProjects/Robots/src/main/java/tools/math_tools/GameMathTools.java
+/home/festena/javaProjects/Robots/src/main/java/tools/structs/CircledArray.java

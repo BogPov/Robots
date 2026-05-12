@@ -1,8 +1,10 @@
 gui/GameStateWindow.class
 service/WindowStateService.class
+tools/structs/CircledArray$CircledArrayIterator.class
 gui/MainApplicationFrame$1.class
 log/Logger.class
 model/WindowState.class
+tools/structs/CircledArray.class
 model/TargetChangedEvent.class
 model/GameEvent.class
 controller/GameController.class
@@ -20,7 +22,7 @@ storage/WindowStateStorage.class
 gui/MainApplicationFrame.class
 gui/GameVisualizer.class
 controller/GameController$1.class
-math_tools/GameMathTools.class
+tools/math_tools/GameMathTools.class
 gui/RobotsProgram.class
 gui/GameWindow.class
 game_model/GameModel.class

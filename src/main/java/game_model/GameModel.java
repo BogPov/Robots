@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static math_tools.GameMathTools.*;
-import static math_tools.GameMathTools.angleTo;
+import static tools.math_tools.GameMathTools.*;
+import static tools.math_tools.GameMathTools.angleTo;
 
 public class GameModel implements Observeable<GameModelObserver> {
     private double m_robotPositionX = 100;
